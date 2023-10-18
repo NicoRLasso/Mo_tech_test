@@ -8,6 +8,7 @@ django = "*"
 djangorestframework = "*"
 django-environ = "*"
 psycopg2-binary = "*"
+django-filter = "*"
 
 [dev-packages]
 pre-commit = "*"
