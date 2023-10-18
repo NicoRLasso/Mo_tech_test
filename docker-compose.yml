@@ -1,34 +1,31 @@
 version: "3.8"
 
 services:
-  web_app_db:
+  postgres:
     restart: always
-    container_name: web-app-db
+    container_name: mo_postgres
     image: postgres:13
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_NAME=${POSTGRES_NAME}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    ports:
-      - "${POSTGRES_LOCAL_PORT}:${POSTGRES_PORT}"
+    env_file:
+      - .env
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_NAME}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 5s
       timeout: 5s
       retries: 5
 
-  backend:
-    container_name: backend
+  django_backend:
+    env_file:
+      - ./.env
+    container_name: django_backend
     build:
       context: .
       dockerfile: Dockerfile
-    entrypoint: /entrypoint.sh
-    command: bash -c "python mo_tech/manage.py runserver 0.0.0.0:${DJANGO_PORT}"
+    entrypoint: /app/src/entrypoint
+    command: /app/src/start
     ports:
       - "${DJANGO_PORT}:${DJANGO_PORT}"
     volumes:
-      - .:/django_project
+      - .:/app/src
     depends_on:
-      web_app_db:
-        condition: service_healthy
+      - postgres
     restart: on-failure
