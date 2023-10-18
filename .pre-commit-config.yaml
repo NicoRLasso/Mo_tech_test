@@ -1,0 +1,27 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.4.0
+  hooks:
+  - id: check-ast
+  - id: trailing-whitespace
+  - id: check-toml
+  - id: end-of-file-fixer
+- repo: https://github.com/asottile/reorder-python-imports
+  rev: v3.11.0
+  hooks:
+  - id: reorder-python-imports
+- repo: local
+  hooks:
+  - id: autoflake
+    name: autoflake
+    entry: pipenv run autoflake
+    language: system
+    types: [python]
+    args: [--in-place, --remove-all-unused-imports, --remove-duplicate-keys]
+  - id: black
+    name: Format with Black
+    entry: pipenv run black
+    language: system
+    types: [python]

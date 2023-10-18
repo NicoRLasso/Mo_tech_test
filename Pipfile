@@ -6,8 +6,16 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "*"
+django-environ = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
+pre-commit = "*"
+pytest = "*"
+flake8 = "*"
+reorder-python-imports = "*"
+black = "*"
+autoflake = "*"
 
 [requires]
 python_version = "3.11"
