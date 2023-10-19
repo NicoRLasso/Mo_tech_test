@@ -65,6 +65,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "mo_tech.customers",
+    "mo_tech.loans",
+    "mo_tech.payments",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
