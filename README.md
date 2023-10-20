@@ -1,6 +1,32 @@
 # Mo Tech test
 
-this is a test for Mo Tech company
+this is a test for Mo Technology company
+
+## How to run the project
+
+### clone the project
+
+```bash
+git clone git@github.com:NicoRLasso/Mo_tech_test.git
+```
+
+### create a .env file
+
+```bash
+cp .env.example .env
+```
+
+### build the project
+
+```bash
+docker-compose build
+```
+
+### run the project
+
+```bash
+docker-compose up
+```
 
 ### create a super user
 
@@ -8,10 +34,10 @@ this is a test for Mo Tech company
 docker-compose run django_backend python /app/src/manage.py createsuperuser
 ```
 
-### run the project
+### go to swagger documentation
 
 ```bash
-docker-compose up --build
+http://localhost:8000/api/docs
 ```
 
 ### run the tests
