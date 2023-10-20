@@ -60,9 +60,9 @@ class LoanSerializerTest(TestCase):
     def test_serializer_invalid_data(self):
         """Test serialization of invalid data"""
         invalid_data = {
-            "external_id": "",  # Empty external_id should be invalid
-            "amount": -100,  # Assuming amount should be positive, this should be invalid
-            "status": 99,  # Invalid status choice
+            "external_id": "",
+            "amount": -100,
+            "status": 99,
         }
         serializer = LoanSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid())

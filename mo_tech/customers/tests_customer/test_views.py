@@ -17,8 +17,6 @@ from mo_tech.loans.models import Loan
 class CustomerViewSetTestCase(APITestCase):
     def setUp(self):
         self.client = APIClient()
-
-        # Assuming you have a User model for authentication
         self.user = User.objects.create_user(
             username="testuser", password="testpassword"
         )
@@ -89,6 +87,4 @@ class CustomerViewSetTestCase(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["total_debt"], 50.0)
-        self.assertEqual(
-            response.data["available_amount"], 50.0
-        )  # 100 (score) - 50 (debt)
+        self.assertEqual(response.data["available_amount"], 50.0)

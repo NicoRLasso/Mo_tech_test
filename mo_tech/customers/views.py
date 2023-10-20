@@ -30,9 +30,6 @@ class CustomerViewSet(
     def retrieve_balance(self, request, pk=None):
         """Retrieve the balance for a specific customer."""
         customer = self.get_object()
-
-        # Calculate total debt which is the sum of outstanding amounts
-        # for all pending and active loans for the specific customer.
         total_debt = (
             Loan.objects.filter(
                 Q(status=Loan.LoanStatus.PENDING) | Q(status=Loan.LoanStatus.ACTIVE),
@@ -40,10 +37,7 @@ class CustomerViewSet(
             ).aggregate(total_outstanding=Sum("outstanding"))["total_outstanding"]
             or 0.0
         )
-
-        # Calculate available amount.
         available_amount = customer.score - total_debt
-
         return Response(
             {
                 "external_id": customer.external_id,

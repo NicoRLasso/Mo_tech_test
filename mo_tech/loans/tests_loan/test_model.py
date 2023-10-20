@@ -10,7 +10,6 @@ from mo_tech.loans.models import Loan
 class LoanModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        # Set up non-modified objects used by all test methods
         customer = Customer.objects.create(
             external_id="test_customer", status=1, score=100.0
         )

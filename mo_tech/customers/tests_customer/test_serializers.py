@@ -7,7 +7,6 @@ from mo_tech.customers.serializers import CustomerSerializer
 
 class CustomerSerializerTest(TestCase):
     def setUp(self):
-        # Set up a test Customer instance
         self.customer_data = {
             "external_id": "12345",
             "score": 9.5,
@@ -38,7 +37,6 @@ class CustomerSerializerTest(TestCase):
             partial=True,
         )
 
-        # is_valid should pass but read-only fields should not be updated
         self.assertTrue(serializer.is_valid())
         serializer.save()
         self.customer.refresh_from_db()
@@ -52,9 +50,9 @@ class CustomerSerializerTest(TestCase):
     def test_serializer_invalid_data(self):
         """Test serialization of invalid data"""
         invalid_data = {
-            "external_id": "",  # Empty external_id should be invalid
-            "score": 15,  # Assuming score should be between 0 to 10, this should be invalid
-            "status": 99,  # Invalid status choice
+            "external_id": "",
+            "score": 15,
+            "status": 99,
         }
         serializer = CustomerSerializer(data=invalid_data)
         self.assertFalse(serializer.is_valid())

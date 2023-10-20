@@ -17,15 +17,11 @@ class LoanViewSetTest(APITestCase):
     def setUp(self):
         self.client = APIClient()
 
-        # Set up a user for authentication
         self.user = User.objects.create_user(username="testuser", password="testpass")
-        # Create a customer for testing
         self.customer = Customer.objects.create(
             external_id="customer12345", score=100.0, status=1
-        )  # Add any other required fields
+        )
         self.client.login(username="testuser", password="testpassword")
-
-        # Set up a test Loan instance linked to the created customer
         self.loan_data = {
             "external_id": "loan12345",
             "amount": 100.50,
@@ -55,9 +51,7 @@ class LoanViewSetTest(APITestCase):
         }
         data_as_str = json.dumps(loan_data)
 
-        url = reverse(
-            "api:loans-list"
-        )  # Adjust the name based on your URL configuration
+        url = reverse("api:loans-list")
         response = self.client.post(url, data_as_str, content_type="application/json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertTrue(

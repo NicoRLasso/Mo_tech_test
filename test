@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+# Check if Docker is running
+if docker info &>/dev/null; then
+    echo "Docker is running."
+else
+    echo "Docker is not running. Starting docker-compose..."
+    docker-compose up --build -d
+    sleep 10
+fi
+
+exec docker-compose run django_backend python /app/src/manage.py test

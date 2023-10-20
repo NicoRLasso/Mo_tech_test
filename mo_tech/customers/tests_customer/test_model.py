@@ -6,7 +6,6 @@ from mo_tech.customers.models import Customer
 class CustomerModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        # Set up non-modified objects used by all test methods
         Customer.objects.create(external_id="123", score=10.0)
 
     def test_external_id_label(self):
@@ -42,6 +41,5 @@ class CustomerModelTest(TestCase):
 
     def test_created_at_and_updated_at(self):
         customer = Customer.objects.get(id=1)
-        # This ensures the fields are auto-set and are not None.
         self.assertIsNotNone(customer.created_at)
         self.assertIsNotNone(customer.updated_at)
